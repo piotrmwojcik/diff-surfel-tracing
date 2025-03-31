@@ -272,7 +272,6 @@ class SurfelTracer(nn.Module):
         if vertices is None: vertices = torch.Tensor([]).cuda()
 
         # Invoke C++/CUDA/OptiX tracing routine
-        print('!!!! self.training ', self.training)
         return trace_surfels(self.optix_context,
                              self.training,
                              start_from_first,
