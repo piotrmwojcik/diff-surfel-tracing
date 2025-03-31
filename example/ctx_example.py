@@ -4,10 +4,11 @@ import torch
 class Rasterize(torch.autograd.Function):
     @staticmethod
     def forward(ctx, x):
-        ctx.save_for_backward(x)
 
         a_weights = x + 1  # our weights
         result = x * a_weights  # simulate rasterization
+
+        ctx.save_for_backward(x, a_weights)
 
         return result, a_weights  # Returning both
 
