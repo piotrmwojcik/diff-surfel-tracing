@@ -129,6 +129,8 @@ class _TraceSurfels(torch.autograd.Function):
         ray_o, ray_d, vertices, means3D, shs, colors_precomp, others_precomp, opacities, scales, rotations, cov3Ds_precomp, \
             out_rgb, out_dpt, out_acc, out_norm, out_dist, out_aux, mid_val = ctx.saved_tensors
 
+        print('calling backward !!')
+
         # Restructure args as C++ method expects them
         args = (optix_context,
                 start_from_first,

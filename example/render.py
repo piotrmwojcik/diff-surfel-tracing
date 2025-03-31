@@ -147,9 +147,9 @@ def main():
         save_image(join(nrm_dir, f'{i:04d}{args.vis_ext}'), visualize_normal(norm, R))
 
     # Generate videos
-    generate_video(f'"{rgb_dir}/*{args.vis_ext}"', f'{join(args.result_dir, "RENDER.mp4")}', fps=args.fps)
-    generate_video(f'"{dpt_dir}/*{args.vis_ext}"', f'{join(args.result_dir, "DEPTH.mp4")}', fps=args.fps)
-    generate_video(f'"{nrm_dir}/*{args.vis_ext}"', f'{join(args.result_dir, "NORMAL.mp4")}', fps=args.fps)
+    #generate_video(f'"{rgb_dir}/*{args.vis_ext}"', f'{join(args.result_dir, "RENDER.mp4")}', fps=args.fps)
+    #generate_video(f'"{dpt_dir}/*{args.vis_ext}"', f'{join(args.result_dir, "DEPTH.mp4")}', fps=args.fps)
+    #generate_video(f'"{nrm_dir}/*{args.vis_ext}"', f'{join(args.result_dir, "NORMAL.mp4")}', fps=args.fps)
 
     # Finish testing
     print(f"[INFO] Rendering finished.")
