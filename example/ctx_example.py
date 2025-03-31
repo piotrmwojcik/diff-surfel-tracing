@@ -14,7 +14,7 @@ class Rasterize(torch.autograd.Function):
 
     @staticmethod
     def backward(ctx, grad_result, grad_a_weights):  # exactly like in surfel tracer
-        (x,) = ctx.saved_tensors  # ctx skips a_weights
+        (x, _) = ctx.saved_tensors  # ctx skips a_weights
 
         # compute gradients for x. FOR a_weights NO GRADIENT COMPUTATION HERE
         grad_x = grad_result * 2 * x
