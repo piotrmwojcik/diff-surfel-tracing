@@ -95,6 +95,8 @@ class _TraceSurfels(torch.autograd.Function):
                 tracer_settings.max_trace_depth,
                 tracer_settings.specular_threshold)
 
+        print('calling forward !!')
+
         # Invoke C++/CUDA/OptiX tracer
         if tracer_settings.debug:
             cpu_args = cpu_deep_copy_tuple(args) # Copy them before they can be corrupted
