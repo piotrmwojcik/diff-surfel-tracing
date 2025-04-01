@@ -33,6 +33,7 @@ def parse_args():
 def load_nerf_camera(camera: dict):
     # Load camera parameters
     H, W = camera['h'], camera['w']
+
     K = torch.tensor([
         [camera['fl_x'], 0., camera['cx']],
         [0., camera['fl_y'], camera['cy']],
