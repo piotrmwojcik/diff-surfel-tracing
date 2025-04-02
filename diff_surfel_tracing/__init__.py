@@ -119,7 +119,7 @@ class _TraceSurfels(torch.autograd.Function):
         # Return the per-Gaussian hit counter for training gradient filtering
         acc_wet = a_weights if a_weights is not None else torch.zeros_like(means3D[:, 0], dtype=means3D.dtype, device=means3D.device)
 
-        return out_rgb, out_dpt, out_acc, out_norm, out_dist[..., :1].clone(), out_aux, mid_val, acc_wet
+        return out_rgb, out_dpt, out_acc, out_norm, out_dist[..., :1].clone(), out_aux, mid_val, acc_wet, a_transmittance
 
     @staticmethod
     def backward(ctx, grad_out_rgb, grad_out_dpt, grad_out_acc, grad_out_norm, grad_out_dist, grad_out_aux, grad_mid_val, grad_acc_wet):
