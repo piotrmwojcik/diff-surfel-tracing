@@ -99,7 +99,7 @@ class _TraceSurfels(torch.autograd.Function):
         if tracer_settings.debug:
             cpu_args = cpu_deep_copy_tuple(args) # Copy them before they can be corrupted
             try:
-                out_rgb, out_dpt, out_acc, out_norm, out_dist, out_aux, mid_val, a_weights = _C.trace_surfels(*args)
+                out_rgb, out_dpt, out_acc, out_norm, out_dist, out_aux, mid_val, a_weights, a_transmittance = _C.trace_surfels(*args)
             except Exception as ex:
                 torch.save(cpu_args, "snapshot_fw.dump")
                 print("\nAn error occured in forward. Please forward snapshot_fw.dump for debugging.")
