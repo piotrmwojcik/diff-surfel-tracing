@@ -302,7 +302,7 @@ TraceSurfelsCUDA(
     CUDA_CHECK(cudaStreamSynchronize(stream));
 
     // Return
-    return std::tuple<torch::Tensor, torch::Tensor, torch::Tensor, torch::Tensor, torch::Tensor, torch::Tensor, torch::Tensor, torch::Tensor>(
+    return std::tuple<torch::Tensor, torch::Tensor, torch::Tensor, torch::Tensor, torch::Tensor, torch::Tensor, torch::Tensor, torch::Tensor, torch::Tensor>(
         out_rgb, out_dpt, out_acc, out_norm, out_dist, out_aux, mid_val, a_weights, a_transmittance);
 }
 
