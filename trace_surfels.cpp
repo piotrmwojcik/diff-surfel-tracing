@@ -281,8 +281,10 @@ TraceSurfelsCUDA(
     {
         // Initiate actual parameters used for backward pass
         a_weights = torch::zeros({P, 1}, float_opts);  // per-Gaussian accumulated weights contribution
+        a_transmittance = torch::zeros({P, 1}, float_opts)
         // Store accumulated parameters for backward pass
         params.a_weights = a_weights.contiguous().data_ptr<float>();
+        params.a_transmittance = a_transmittance.contiguous().data_ptr<float>();
     }
 
     // Allocate memory for the parameters
