@@ -230,6 +230,7 @@ TraceSurfelsCUDA(
     // Create accumulated or dummy parameters for backward pass
     torch::Tensor mid_val = torch::zeros({H, W, MID_CHANNELS * (MAX_TRACE_DEPTH + 1)}, float_opts);  // traced results for backward pass
     torch::Tensor a_weights;
+    torch::Tensor a_transmittance;
 
     // Create global parameters for the OptiX program
     Params params;
@@ -300,7 +301,7 @@ TraceSurfelsCUDA(
 
     // Return
     return std::tuple<torch::Tensor, torch::Tensor, torch::Tensor, torch::Tensor, torch::Tensor, torch::Tensor, torch::Tensor, torch::Tensor>(
-        out_rgb, out_dpt, out_acc, out_norm, out_dist, out_aux, mid_val, a_weights);
+        out_rgb, out_dpt, out_acc, out_norm, out_dist, out_aux, mid_val, a_weights, a_transmittance);
 }
 
 

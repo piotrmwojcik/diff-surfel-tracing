@@ -105,9 +105,9 @@ class _TraceSurfels(torch.autograd.Function):
                 print("\nAn error occured in forward. Please forward snapshot_fw.dump for debugging.")
                 raise ex
         else:
-            out_rgb, out_dpt, out_acc, out_norm, out_dist, out_aux, mid_val, a_weights = _C.trace_surfels(*args)
+            out_rgb, out_dpt, out_acc, out_norm, out_dist, out_aux, mid_val, a_weights, a_transmittance = _C.trace_surfels(*args)
 
-        print('!!!! ', a_weights)
+        #print('!!!! ', a_weights)
 
         # Keep relevant tensors for backward
         ctx.tracer_settings = tracer_settings

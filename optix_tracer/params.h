@@ -59,6 +59,7 @@ struct Params
     float* mid_val;  // (H, W, (T + 1) * (C + 1 + 1)), traced middle results
     // Other accmulated parameters
     float* a_weights;  // (P, 1), per-Gaussian accumulated weights
+    float* a_transmittance
 
     // Input upstream gradients
     float* dL_drgb;  // (H, W, C), gradient of RGB color or other features

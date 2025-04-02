@@ -293,6 +293,7 @@ __device__ void traceRay(
                 // Accumulate the contribution weight for each Gaussian
                 // TODO (xbillowy): profile the performance of atomicAdd()
                 atomicAdd(&(params.a_weights[gidx]), w);
+                atomicAdd(&(params.a_weights[gidx]), T_prev);
             }
         }
 
