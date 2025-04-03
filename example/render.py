@@ -120,6 +120,8 @@ def main():
         ray_o, ray_d = get_rays(H, W, K, R, T)
         ray_o, ray_d = ray_o.cuda().contiguous(), ray_d.cuda().contiguous()
 
+        print('!!! view point ', viewpoint_camera.camera_center)
+
         # Set the surfel tracing settings
         tracer_settings = SurfelTracingSettings(
             image_height=int(viewpoint_camera.image_height),
