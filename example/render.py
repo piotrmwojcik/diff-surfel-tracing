@@ -67,7 +67,7 @@ def main():
     v, f = v.cuda().contiguous(), f.cuda().contiguous()  # .contiguous() is necessary for the following CUDA operations
     print(f"[INFO] Converted number of triangles: {f.shape[0]}")
 
-    print(v)
+    print('v min max ', torch.max(v), torch.min(v))
 
     mesh = o3d.geometry.TriangleMesh()
     mesh.vertices = o3d.utility.Vector3dVector(v.detach().cpu().numpy())
