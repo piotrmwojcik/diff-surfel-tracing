@@ -3,6 +3,7 @@ import json
 import math
 import torch
 import argparse
+import open3d as o3d
 import numpy as np
 from tqdm import tqdm
 import torch.nn as nn
@@ -66,29 +67,16 @@ def main():
     v, f = v.cuda().contiguous(), f.cuda().contiguous()  # .contiguous() is necessary for the following CUDA operations
     print(f"[INFO] Converted number of triangles: {f.shape[0]}")
 
-    v_cpu = v.detach().cpu().numpy()  # Shape: (num_vertices, 3)
-    f_cpu = f.detach().cpu().numpy()  # Shape: (num_faces, 3)
+    mesh = o3d.geometry.TriangleMesh()
+    mesh.vertices = o3d.utility.Vector3dVector(v.detach().cpu().numpy())
+    mesh.triangles = o3d.utility.Vector3iVector(f.detach().cpu().numpy())
 
-    # Create a Matplotlib 3D figure
-    fig = plt.figure(figsize=(8, 8))
-    ax = fig.add_subplot(111, projection='3d')
+    # Save the mesh to a file (PLY format)
+    o3d.io.write_triangle_mesh("/home/pwojcik/meshes/example/mesh.ply", mesh)
 
-    # Create a mesh collection
-    mesh = Poly3DCollection(v_cpu[f_cpu], alpha=0.5, edgecolor='k')
-    ax.add_collection3d(mesh)
-
-    # Set axis limits
-    ax.set_xlim(v_cpu[:, 0].min(), v_cpu[:, 0].max())
-    ax.set_ylim(v_cpu[:, 1].min(), v_cpu[:, 1].max())
-    ax.set_zlim(v_cpu[:, 2].min(), v_cpu[:, 2].max())
-
-    # Labels
-    ax.set_xlabel('X')
-    ax.set_ylabel('Y')
-    ax.set_zlabel('Z')
-
+    o3d.io.write_triangle_mesh("/home/pwojcik/meshes/example/mesh.obj", mesh)
     # Save as PNG
-    plt.savefig(f"/home/pwojcik/meshes/example/mesh_visualization.png", dpi=300, bbox_inches='tight')
+    #plt.savefig(f"/home/pwojcik/meshes/example/mesh_visualization.png", dpi=300, bbox_inches='tight')
 
     # Create the SurfelTracer
     tracer = SurfelTracer()
@@ -151,7 +139,7 @@ def main():
         )
 
         # Perform the ray tracing
-        rgb, dpt, acc, norm, dist, aux, mid, wet = tracer(
+        rgb, dpt, acc, norm, dist, aux, mid, wet, transmittance = tracer(
             ray_o,  # (H, W, 3) or (B, P, 3)
             ray_d,  # (H, W, 3) or (B, P, 3)
             v,  # (P * 4, 3)
