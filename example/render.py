@@ -67,6 +67,8 @@ def main():
     v, f = v.cuda().contiguous(), f.cuda().contiguous()  # .contiguous() is necessary for the following CUDA operations
     print(f"[INFO] Converted number of triangles: {f.shape[0]}")
 
+    print(v)
+
     mesh = o3d.geometry.TriangleMesh()
     mesh.vertices = o3d.utility.Vector3dVector(v.detach().cpu().numpy())
     mesh.triangles = o3d.utility.Vector3iVector(f.detach().cpu().numpy())
@@ -120,8 +122,8 @@ def main():
         ray_o, ray_d = get_rays(H, W, K, R, T)
         ray_o, ray_d = ray_o.cuda().contiguous(), ray_d.cuda().contiguous()
 
-        print('!!! view point ', viewpoint_camera.camera_center)
-        print('!!! ray_o ', ray_o)
+        #print('!!! view point ', viewpoint_camera.camera_center)
+        #print('!!! ray_o ', ray_o)
 
         # Set the surfel tracing settings
         tracer_settings = SurfelTracingSettings(
