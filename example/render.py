@@ -6,6 +6,8 @@ import argparse
 import numpy as np
 from tqdm import tqdm
 import torch.nn as nn
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 from os.path import join, exists
 
 from diff_surfel_tracing import SurfelTracer, SurfelTracingSettings
@@ -63,6 +65,30 @@ def main():
     v, f = pcd.get_triangles()
     v, f = v.cuda().contiguous(), f.cuda().contiguous()  # .contiguous() is necessary for the following CUDA operations
     print(f"[INFO] Converted number of triangles: {f.shape[0]}")
+
+    v_cpu = v.detach().cpu().numpy()  # Shape: (num_vertices, 3)
+    f_cpu = f.detach().cpu().numpy()  # Shape: (num_faces, 3)
+
+    # Create a Matplotlib 3D figure
+    fig = plt.figure(figsize=(8, 8))
+    ax = fig.add_subplot(111, projection='3d')
+
+    # Create a mesh collection
+    mesh = Poly3DCollection(v_cpu[f_cpu], alpha=0.5, edgecolor='k')
+    ax.add_collection3d(mesh)
+
+    # Set axis limits
+    ax.set_xlim(v_cpu[:, 0].min(), v_cpu[:, 0].max())
+    ax.set_ylim(v_cpu[:, 1].min(), v_cpu[:, 1].max())
+    ax.set_zlim(v_cpu[:, 2].min(), v_cpu[:, 2].max())
+
+    # Labels
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    ax.set_zlabel('Z')
+
+    # Save as PNG
+    plt.savefig(f"/home/pwojcik/meshes/example/mesh_visualization.png", dpi=300, bbox_inches='tight')
 
     # Create the SurfelTracer
     tracer = SurfelTracer()
