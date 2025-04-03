@@ -130,8 +130,6 @@ def get_rays_from_ij(i: torch.Tensor, j: torch.Tensor,
     ray_o = ray_o[..., 0]
     ray_d = pixel_world - ray_o  # use pixel_world depth as is (no curving)
 
-    print(ray_o, ray_d)
-
     if not use_z_depth: ray_d = normalize(ray_d)  # B, P, 3, 1
 
     if not ret_coord: return ray_o, ray_d

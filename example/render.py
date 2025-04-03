@@ -121,6 +121,7 @@ def main():
         ray_o, ray_d = ray_o.cuda().contiguous(), ray_d.cuda().contiguous()
 
         print('!!! view point ', viewpoint_camera.camera_center)
+        print('!!! ray_o ', ray_o)
 
         # Set the surfel tracing settings
         tracer_settings = SurfelTracingSettings(
